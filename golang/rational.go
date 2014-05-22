@@ -31,25 +31,25 @@ func main() {
   d := Mult(a, b)
 
   println("\na")
-  Print( a )
+  a.Print()
 
   println("\nb")
-  Print( b )
+  b.Print()
 
   println("\na < b")
   println( LessThan( a, b ) )
 
   println("\nb is the max")
-  Print( Max(a, b) )
+  Max(a, b).Print()
 
   println("\na + b = c")
-  Print( c )
+  c.Print()
   println("\na * b = d")
-  Print( d )
+  d.Print()
 
   println("\na and b are unchanged")
-  Print( a )
-  Print( b )
+  a.Print()
+  b.Print()
 }
 
 type Rational struct {
@@ -81,6 +81,6 @@ func Max(a Rational, b Rational) Rational {
   }
 }
 
-func Print(some Rational) {
+func (some Rational) Print() {
   fmt.Printf("Rational: %d/%d\n", some.Numer, some.Denom)
 }
