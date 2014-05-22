@@ -25,31 +25,39 @@ import(
 )
 
 func main() {
+  // create a pair of rational numbers, `a` and `b`
   a := Rational{1, 2}
   b := Rational{2, 3}
-  c := Add(a, b)
-  d := Mult(a, b)
-
-  println("\na")
+  // print them
+  println("given `a` and `b`")
   a.Print()
-
-  println("\nb")
   b.Print()
 
-  println("\na < b")
-  println( LessThan( a, b ) )
 
-  println("\nb is the max")
-  Max(a, b).Print()
-
-  println("\na + b = c")
+  // add `a` and `b`, yielding new rational `c`
+  c := Add(a, b)
+  // print `c`
+  println("\n`a + b = c`")
   c.Print()
-  println("\na * b = d")
-  d.Print()
-
   println("\na and b are unchanged")
   a.Print()
   b.Print()
+
+  // add `a` and `b`, yielding new rational `d`
+  d := Mult(a, b)
+  // print `d`
+  println("\n`a * b = d`")
+  d.Print()
+  println("\na and b are unchanged")
+  a.Print()
+  b.Print()
+
+
+  println("\n`a < b` is `true`")
+  println( LessThan( a, b ) )
+
+  println("\n`b` is the `max`")
+  Max(a, b).Print()
 }
 
 type Rational struct {
@@ -75,9 +83,9 @@ func LessThan(this Rational, that Rational) bool {
 
 func Max(a Rational, b Rational) Rational {
   if (LessThan( a, b )) {
-    return a
-  } else {
     return b
+  } else {
+    return a
   }
 }
 
