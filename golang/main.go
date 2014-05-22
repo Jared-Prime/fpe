@@ -21,13 +21,13 @@
 package main
 
 import(
-  "fmt"
+  "./rational"
 )
 
 func main() {
   // create a pair of rational numbers, `a` and `b`
-  a := Rational{1, 2}
-  b := Rational{2, 3}
+  a := rational.Rational{1, 2}
+  b := rational.Rational{2, 3}
   // print them
   println("given `a` and `b`")
   a.Print()
@@ -35,7 +35,7 @@ func main() {
 
 
   // add `a` and `b`, yielding new rational `c`
-  c := Add(a, b)
+  c := rational.Add(a, b)
   // print `c`
   println("\n`a + b = c`")
   c.Print()
@@ -44,7 +44,7 @@ func main() {
   b.Print()
 
   // add `a` and `b`, yielding new rational `d`
-  d := Mult(a, b)
+  d := rational.Mult(a, b)
   // print `d`
   println("\n`a * b = d`")
   d.Print()
@@ -54,41 +54,8 @@ func main() {
 
 
   println("\n`a < b` is `true`")
-  println( LessThan( a, b ) )
+  println( rational.LessThan( a, b ) )
 
   println("\n`b` is the `max`")
-  Max(a, b).Print()
-}
-
-type Rational struct {
-  Numer int
-  Denom int
-}
-
-func Add(this Rational, that Rational) Rational {
-  return Rational{
-    (this.Numer * that.Denom) + (this.Denom * that.Numer),
-    this.Denom * that.Denom }
-}
-
-func Mult(this Rational, that Rational) Rational {
-  return Rational{
-    this.Numer * that.Numer,
-    this.Denom * that.Denom }
-}
-
-func LessThan(this Rational, that Rational) bool {
-  return this.Numer * that.Denom < that.Numer * this.Denom
-}
-
-func Max(a Rational, b Rational) Rational {
-  if (LessThan( a, b )) {
-    return b
-  } else {
-    return a
-  }
-}
-
-func (some Rational) Print() {
-  fmt.Printf("Rational: %d/%d\n", some.Numer, some.Denom)
+  rational.Max(a, b).Print()
 }
