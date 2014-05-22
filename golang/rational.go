@@ -27,8 +27,8 @@ import(
 func main() {
   a := Rational{1, 2}
   b := Rational{2, 3}
-  c := a.Add(b)
-  d := a.Mult(b)
+  c := Add(a, b)
+  d := Mult(a, b)
 
   println("\na")
   Print( a )
@@ -37,7 +37,7 @@ func main() {
   Print( b )
 
   println("\na < b")
-  println( a.LessThan( b ) )
+  println( LessThan( a, b ) )
 
   println("\nb is the max")
   Print( Max(a, b) )
@@ -57,24 +57,24 @@ type Rational struct {
   Denom int
 }
 
-func (this Rational) Add(that Rational) Rational {
+func Add(this Rational, that Rational) Rational {
   return Rational{
     (this.Numer * that.Denom) + (this.Denom * that.Numer),
     this.Denom * that.Denom }
 }
 
-func (this Rational) Mult(that Rational) Rational {
+func Mult(this Rational, that Rational) Rational {
   return Rational{
     this.Numer * that.Numer,
     this.Denom * that.Denom }
 }
 
-func (this Rational) LessThan(that Rational) bool {
+func LessThan(this Rational, that Rational) bool {
   return this.Numer * that.Denom < that.Numer * this.Denom
 }
 
 func Max(a Rational, b Rational) Rational {
-  if (a.LessThan( b )) {
+  if (LessThan( a, b )) {
     return a
   } else {
     return b
