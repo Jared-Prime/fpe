@@ -1,0 +1,129 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname |chapter one|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ())))
+;; exercise 1.3
+(define (square n)
+  (* n n))
+
+(define (larger a b)
+  (if (> a b)
+      a
+      b)
+  )
+
+(define (square-sum-larger a b c)
+  (+
+    (square (larger a b))
+    (square (larger b c)))
+  )
+
+;; exercise 1.7
+(define (good-enough? prev guess)
+  (< (abs (- prev guess)) 0.001))
+
+(define (sqrt-iter prev guess x)
+  (if (good-enough? prev guess)
+      guess
+      (sqrt-iter guess ;; becomes `prev`
+                 (improve guess x)
+                 x)))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (my-sqrt n)
+  ;; prev = 0, guess = 1
+  (sqrt-iter 0 1 n))
+
+(my-sqrt 9)
+
+;; exercise 1.8
+(define (cr-improve y x)
+  (/ (+ (/ x 
+         (square y)) 
+        (* 2 y)) 
+     3))
+
+(define (cr-iter prev guess n)
+  (if (good-enough? prev guess)
+      guess
+      (cr-iter guess
+               (cr-improve guess n)
+               n)))
+
+(define (my-cr n)
+  (cr-iter 0 1 n))
+
+(my-cr 27)
+
+;; factorial function
+
+(define (! n)
+  (!iter 1 1 n))
+
+(define (!iter product count maximum)
+  (if (> count maximum)
+      product
+      (!iter (* count product)
+             (+ count 1)
+             maximum)))
+
+(! 5)
+
+;; exercise 1.10 Ackerman function
+
+(define (Acker x y)
+  (cond ((= y 0) 0)
+        ((= x 0) (* 2 y))
+        ((= y 1) 2)
+        (else (Acker (- x 1)
+                 (Acker x (- y 1))))))
+
+(Acker 1 10)
+(Acker 2 4)
+(Acker 3 3)
+
+;; exercise 1.11
+
+(define (rec-func n)
+  ;; pretty close to the original
+  ;; description of the function
+  (if (< n 3)
+      n
+      (+ (rec-func (- n 1))
+         (* 2 (rec-func (- n 2)))
+         (* 3 (rec-func (- n 3)))
+       )))
+
+(define (iter-func n)
+  (iter 2 1 0 n))
+
+(define (iter a b c n)
+  (cond ((= n 2) a)
+        ((< n 3) n)
+        ;; the fixed point
+        (else
+         (iter (+ a (* 2 b) (* 3 c))
+               a
+               b
+               (- n 1)))))
+(rec-func 10)
+(iter-func 10)
+
+;; exercise 1.12 - Pascal's triangle
+;;  col! / ((col - row)! * row!)
+(define (pascal col row)
+  (round (pascal-val col row)))
+
+(define (pascal-val col row)
+  (/ (! col)
+     (* (! (- col row)) (! row))))
+
+(pascal 3 2)
+(pascal 5 1)
+(pascal 5 2)
+
+
