@@ -1,6 +1,6 @@
-#!/bin/ruby
+#!/usr/local/var/rbenv/shims/ruby
 
-File.open( 'scala/euler/problem_11.txt', 'r' ) do |f|
+File.open( '../../euler_problems/problem_11.txt', 'r' ) do |f|
   grid = []
   f.each_line do |line|
     grid << line.split(' ').map(&:to_i)
